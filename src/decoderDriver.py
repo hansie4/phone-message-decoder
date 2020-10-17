@@ -6,4 +6,6 @@ if(isMessageValid(message) != True):
     print("Message invalid. Exiting program.")
     exit()
 
-allPossibleStrings = getAllPossibleStrings(message)
+allPossibleStrings = getAllStrings(message)
+
+printStringsList(allPossibleStrings)
