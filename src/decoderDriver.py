@@ -2,8 +2,8 @@ from decoderHelper import *
 
 message = input("Enter the message to decode: ")
 
-allPossibleStrings = []
-
-if(isMessageValid() != True):
+if(isMessageValid(message) != True):
     print("Message invalid. Exiting program.")
     exit()
+
+allPossibleStrings = getAllPossibleStrings(message)

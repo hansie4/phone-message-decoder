@@ -1,9 +1,12 @@
 
-def isMessageValid():
+def isMessageValid(message):
+    for character in message:
+        if((not character.isdigit()) and (character != '-')):
+            return False
     return True
 
 
-def getAllPossibleStrings():
+def getAllPossibleStrings(message):
     pass
 
 
