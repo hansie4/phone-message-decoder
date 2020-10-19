@@ -1,5 +1,4 @@
 from collections import deque
-from anytree import Node, RenderTree
 
 
 def getValidMessageToDecode():
@@ -34,66 +33,43 @@ def getAllWordPermutations(message):
 
     partitionedMessage = getPartitionedMessage(message)
 
-    wordTrees = list()
-
     allWordCombinations = list()
 
     currentWordNumber = 1
     for digitSequence in partitionedMessage:
 
-        wordTree = getStringTree(
-            digitSequence, "Word " + str(currentWordNumber))
-        wordTrees.append(wordTree)
+        possibleLettersForWordPermutationList = getPossibleLettersForWordPermutationList(
+            digitSequence)
 
-        path = deque()
-        wordPermutationList = list()
+        wordPermutation = deque()
+        wordPermutationsList = list()
 
-        for node in wordTree.children:
-            getAllWordPermutationsRec(node, path, wordPermutationList)
+        getAllWordPermutationsRec(
+            possibleLettersForWordPermutationList, wordPermutation, wordPermutationsList)
 
-        allWordCombinations.append(wordPermutationList)
-
+        allWordCombinations.append(wordPermutationsList)
         currentWordNumber = currentWordNumber + 1
 
     return allWordCombinations
 
 
-def getAllWordPermutationsRec(node, path, wordPermutationList):
-    if node is None:
+def getAllWordPermutationsRec(lettersList, wordPermutation, wordPermutationsList):
+    if(len(lettersList) == 0):
+        wordPermutationsList.append(list(wordPermutation))
         return
 
-    path.append(node.name)
-
-    if (node.children == ()):
-        wordPermutationList.append(list(path))
-
-    for childNode in node.children:
+    for letter in lettersList[0]:
+        wordPermutation.append(letter)
         getAllWordPermutationsRec(
-            childNode, path, wordPermutationList)
-
-    path.pop()
-
-
-def getStringTree(message, rootNodeName):
-    return Node(rootNodeName, children=getStringTreeRec(message))
+            lettersList[1:], wordPermutation, wordPermutationsList)
+        wordPermutation.pop()
 
 
-def getStringTreeRec(restOfMessage):
-    nodes = []
-    if(len(restOfMessage) == 1):
-        for char in charsForNum(restOfMessage[0]):
-            nodes.append(Node(name=char))
-        return nodes
-    else:
-        for char in charsForNum(restOfMessage[0]):
-            nodes.append(
-                Node(name=char, children=getStringTreeRec(restOfMessage[1:])))
-        return nodes
-
-
-def printStringTree(stringTree):
-    for pre, fill, node in RenderTree(stringTree):
-        print("%s%s" % (pre, node.name))
+def getPossibleLettersForWordPermutationList(digitSequence):
+    possibleLetters = list()
+    for digit in digitSequence:
+        possibleLetters.append(charsForNum(digit))
+    return possibleLetters
 
 
 def printAllWordPermutations(allWordPermutations):
@@ -101,8 +77,10 @@ def printAllWordPermutations(allWordPermutations):
     for wordPermutations in allWordPermutations:
         print("\t\tWORD " + str(currentWord) +
               " (" + str(len(wordPermutations)) + ")")
+        currentWordPermutation = 1
         for combination in wordPermutations:
-            print(combination)
+            print(str(currentWordPermutation) + ":\t" + "".join(combination))
+            currentWordPermutation = currentWordPermutation + 1
         currentWord = currentWord + 1
 
 
