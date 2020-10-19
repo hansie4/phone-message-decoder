@@ -2,12 +2,8 @@ from decoderHelper import *
 
 
 def decodePhoneKeypadMessage():
-    print("This program takes a message in the form of the numbers that correspond to numbers on a phone's keypad (words seperated by '-') and decodes possible meanings.")
-    rawMessage = input("Enter the message to decode: ")
 
-    if(isMessageValid(rawMessage) != True):
-        print("Message invalid. Exiting program.")
-        exit()
+    rawMessage = getValidMessageToDecode()
 
     rawMessagePartitioned = getPartitionedMessage(rawMessage)
 
@@ -17,8 +13,10 @@ def decodePhoneKeypadMessage():
         possibleWords.append(getAllStrings(word))
 
     # DEBUGGING
-    # for words in possibleWords:
-    #    print("------------")
-    #    for word in words:
-    #        print("".join(word))
-    # print("------------")
+    currentWord = 1
+    for words in possibleWords:
+        print("------------Word {currentWord}------------")
+        for word in words:
+            print("".join(word))
+            currentWord = currentWord + 1
+    print("------------------------------------------")

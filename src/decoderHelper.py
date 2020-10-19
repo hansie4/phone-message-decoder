@@ -2,7 +2,19 @@ from collections import deque
 from anytree import Node, RenderTree
 
 
-def isMessageValid(message):
+def getValidMessageToDecode():
+    validMessageRetrieved = False
+
+    while (not validMessageRetrieved):
+        rawMessage = input("Enter Message to Decode: ")
+        if(isMessageToDecodeValid(rawMessage)):
+            return rawMessage
+        else:
+            print(
+                "The message you entered was invalid. The only characters should be digits 2-9 and '-'.")
+
+
+def isMessageToDecodeValid(message):
 
     if(message):
         for character in message:
@@ -23,7 +35,7 @@ def getAllStrings(message):
     stringTree = getStringTree(message, "Tree")
 
     # DEBUGGING
-    # printStringTree(stringTree)
+    printStringTree(stringTree)
 
     path = deque()
     stringList = list()
