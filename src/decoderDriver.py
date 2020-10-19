@@ -14,9 +14,10 @@ def decodePhoneKeypadMessage():
 
     # DEBUGGING
     currentWord = 1
+    print("------------------------------------------")
     for words in possibleWords:
-        print("------------Word {currentWord}------------")
+        print("\t\tWord " + str(currentWord))
         for word in words:
             print("".join(word))
-            currentWord = currentWord + 1
+        currentWord = currentWord + 1
     print("------------------------------------------")
