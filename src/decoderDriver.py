@@ -1,7 +1,7 @@
 from decoderHelper import *
 
 
-def main():
+def decodePhoneKeypadMessage():
     print("This program takes a message in the form of the numbers that correspond to numbers on a phone's keypad (words seperated by '-') and decodes possible meanings.")
     rawMessage = input("Enter the message to decode: ")
 
@@ -22,7 +22,3 @@ def main():
     #    for word in words:
     #        print("".join(word))
     # print("------------")
-
-
-if __name__ == "__main__":
-    main()
