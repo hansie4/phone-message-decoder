@@ -2,15 +2,26 @@ from decoderHelper import *
 
 
 def main():
-    message = input("Enter the message to decode: ")
+    print("This program takes a message in the form of the numbers that correspond to numbers on a phone's keypad (words seperated by '-') and decodes possible meanings.")
+    rawMessage = input("Enter the message to decode: ")
 
-    if(isMessageValid(message) != True):
+    if(isMessageValid(rawMessage) != True):
         print("Message invalid. Exiting program.")
         exit()
 
-    allPossibleStrings = getAllStrings(message)
+    rawMessagePartitioned = getPartitionedMessage(rawMessage)
 
-    printStringsList(allPossibleStrings)
+    possibleWords = list()
+
+    for word in rawMessagePartitioned:
+        possibleWords.append(getAllStrings(word))
+
+    # DEBUGGING
+    # for words in possibleWords:
+    #    print("------------")
+    #    for word in words:
+    #        print("".join(word))
+    # print("------------")
 
 
 if __name__ == "__main__":

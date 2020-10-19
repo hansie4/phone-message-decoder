@@ -14,11 +14,16 @@ def isMessageValid(message):
         return False
 
 
+def getPartitionedMessage(message):
+    return message.split("-")
+
+
 def getAllStrings(message):
 
     stringTree = getStringTree(message, "Tree")
 
-    printStringTree(stringTree)
+    # DEBUGGING
+    # printStringTree(stringTree)
 
     path = deque()
     stringList = list()
@@ -57,8 +62,7 @@ def charsForNum(number):
         '6': ['M', 'N', 'O'],
         '7': ['P', 'Q', 'R', 'S'],
         '8': ['T', 'U', 'V'],
-        '9': ['W', 'X', 'Y', 'Z'],
-        '-': ['-']
+        '9': ['W', 'X', 'Y', 'Z']
     }
     return switcher.get(number)
 
