@@ -38,6 +38,9 @@ def getAllWordPermutations(message):
     currentWordNumber = 1
     for digitSequence in partitionedMessage:
 
+        totalPermutationsPossible = getNumberOfAllPermutations(digitSequence)
+        processedPermutations = [0]
+
         possibleLettersForWordPermutationList = getPossibleLettersForWordPermutationList(
             digitSequence)
 
@@ -45,7 +48,7 @@ def getAllWordPermutations(message):
         wordPermutationsList = list()
 
         getAllWordPermutationsRec(
-            possibleLettersForWordPermutationList, wordPermutation, wordPermutationsList)
+            possibleLettersForWordPermutationList, wordPermutation, wordPermutationsList, totalPermutationsPossible, processedPermutations, currentWordNumber)
 
         allWordCombinations.append(wordPermutationsList)
         currentWordNumber = currentWordNumber + 1
@@ -53,15 +56,18 @@ def getAllWordPermutations(message):
     return allWordCombinations
 
 
-def getAllWordPermutationsRec(lettersList, wordPermutation, wordPermutationsList):
+def getAllWordPermutationsRec(lettersList, wordPermutation, wordPermutationsList, totalPermutationsPossible, processedPermutations, currentWordNumber):
     if(len(lettersList) == 0):
         wordPermutationsList.append(list(wordPermutation))
+        processedPermutations.append((processedPermutations.pop() + 1))
+        printProgressBar(processedPermutations[0], totalPermutationsPossible, prefix=(
+            "Loading Word " + str(currentWordNumber)), suffix="Complete", length=50)
         return
 
     for letter in lettersList[0]:
         wordPermutation.append(letter)
         getAllWordPermutationsRec(
-            lettersList[1:], wordPermutation, wordPermutationsList)
+            lettersList[1:], wordPermutation, wordPermutationsList, totalPermutationsPossible, processedPermutations, currentWordNumber)
         wordPermutation.pop()
 
 
@@ -73,15 +79,15 @@ def getPossibleLettersForWordPermutationList(digitSequence):
 
 
 def printAllWordPermutations(allWordPermutations):
-    currentWord = 1
+    currentWordNumber = 1
     for wordPermutations in allWordPermutations:
-        print("\t\tWORD " + str(currentWord) +
+        print("\t\tWORD " + str(currentWordNumber) +
               " (" + str(len(wordPermutations)) + ")")
         currentWordPermutation = 1
         for combination in wordPermutations:
             print(str(currentWordPermutation) + ":\t" + "".join(combination))
             currentWordPermutation = currentWordPermutation + 1
-        currentWord = currentWord + 1
+        currentWordNumber = currentWordNumber + 1
 
 
 def getNumberOfAllPermutations(digitSequence):
