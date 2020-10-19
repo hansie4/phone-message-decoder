@@ -12,8 +12,10 @@ def main():
 
         if(menuSelection == '1'):
             decodePhoneKeypadMessage()
+            input("\nPress Enter to Continue.")
         elif (menuSelection == '2'):
             encodePhoneKeypadMessage()
+            input("\nPress Enter to Continue.")
         else:
             exitProgram()
 
