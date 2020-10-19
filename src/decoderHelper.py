@@ -115,7 +115,7 @@ def charsForNum(number):
 
 
 def printProgressBar(iteration, total, prefix='', suffix='', decimals=1, length=100, fill='█', printEnd="\r"):
-    # method from https://stackoverflow.com/questions/3173320/text-progress-bar-in-the-console
+    # method from user Greenstick at https://stackoverflow.com/questions/3173320/text-progress-bar-in-the-console
     """
     Call in a loop to create terminal progress bar
     @params:
