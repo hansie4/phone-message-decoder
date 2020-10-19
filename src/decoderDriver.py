@@ -1,11 +1,17 @@
 from decoderHelper import *
 
-message = input("Enter the message to decode: ")
 
-if(isMessageValid(message) != True):
-    print("Message invalid. Exiting program.")
-    exit()
+def main():
+    message = input("Enter the message to decode: ")
 
-allPossibleStrings = getAllStrings(message)
+    if(isMessageValid(message) != True):
+        print("Message invalid. Exiting program.")
+        exit()
 
-printStringsList(allPossibleStrings)
+    allPossibleStrings = getAllStrings(message)
+
+    printStringsList(allPossibleStrings)
+
+
+if __name__ == "__main__":
+    main()
