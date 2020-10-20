@@ -29,7 +29,7 @@ def getPartitionedMessage(message):
     return message.split("-")
 
 
-def getAllWordPermutations(message):
+def getAllPossibleWordPermutations(message):
 
     partitionedMessage = getPartitionedMessage(message)
 
@@ -47,7 +47,7 @@ def getAllWordPermutations(message):
         wordPermutation = deque()
         wordPermutationsList = list()
 
-        getAllWordPermutationsRec(
+        getAllPossibleWordPermutationsRec(
             possibleLettersForWordPermutationList, wordPermutation, wordPermutationsList, totalPermutationsPossible, processedPermutations, currentWordNumber)
 
         allWordCombinations.append(wordPermutationsList)
@@ -56,17 +56,17 @@ def getAllWordPermutations(message):
     return allWordCombinations
 
 
-def getAllWordPermutationsRec(lettersList, wordPermutation, wordPermutationsList, totalPermutationsPossible, processedPermutations, currentWordNumber):
+def getAllPossibleWordPermutationsRec(lettersList, wordPermutation, wordPermutationsList, totalPermutationsPossible, processedPermutations, currentWordNumber):
     if(len(lettersList) == 0):
         wordPermutationsList.append(list(wordPermutation))
         processedPermutations.append((processedPermutations.pop() + 1))
         printProgressBar(processedPermutations[0], totalPermutationsPossible, prefix=(
-            "Loading Word " + str(currentWordNumber)), suffix="Complete", length=50)
+            "Loading Word " + str(currentWordNumber)), suffix="Complete", length=50, fill="#")
         return
 
     for letter in lettersList[0]:
         wordPermutation.append(letter)
-        getAllWordPermutationsRec(
+        getAllPossibleWordPermutationsRec(
             lettersList[1:], wordPermutation, wordPermutationsList, totalPermutationsPossible, processedPermutations, currentWordNumber)
         wordPermutation.pop()
 
