@@ -1,6 +1,8 @@
 from decoderDriver import *
 from encoderDriver import *
 
+OUTPUT_FILE_NAME = "ouput.txt"
+
 
 def main():
     programRunning = True
@@ -11,13 +13,15 @@ def main():
         menuSelection = getMenuSelection()
 
         if(menuSelection == '1'):
-            decodePhoneKeypadMessage()
+            decodePhoneKeypadMessage(OUTPUT_FILE_NAME)
             input("\nPress Enter to Continue.")
         elif (menuSelection == '2'):
             encodePhoneKeypadMessage()
             input("\nPress Enter to Continue.")
         else:
-            exitProgram()
+            programRunning = False
+
+    exitProgram()
 
 
 def getMenuSelection():
