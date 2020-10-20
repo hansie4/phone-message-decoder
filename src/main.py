@@ -14,7 +14,6 @@ def main():
 
         if(menuSelection == '1'):
             decodePhoneKeypadMessage(OUTPUT_FILE_NAME)
-            input("\nPress Enter to Continue.")
         elif (menuSelection == '2'):
             encodePhoneKeypadMessage()
             input("\nPress Enter to Continue.")
