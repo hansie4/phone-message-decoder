@@ -38,7 +38,8 @@ def getAllPossibleWordPermutations(message):
     currentWordNumber = 1
     for digitSequence in partitionedMessage:
 
-        totalPermutationsPossible = getNumberOfAllPermutations(digitSequence)
+        totalPermutationsPossible = getNumberOfAllWordPermutations(
+            digitSequence)
         processedPermutations = [0]
 
         possibleLettersForWordPermutationList = getPossibleLettersForWordPermutationList(
@@ -71,6 +72,44 @@ def getAllPossibleWordPermutationsRec(lettersList, wordPermutation, wordPermutat
         wordPermutation.pop()
 
 
+def getAllPossibleSentences(allPossibleWordPermutations):
+
+    if (len(allPossibleWordPermutations) > 0):
+        totalPermutationsPossible = 1
+
+        for word in allPossibleWordPermutations:
+            totalPermutationsPossible = totalPermutationsPossible * len(word)
+    else:
+        totalPermutationsPossible = 0
+
+    processedPermutations = [0]
+
+    sentencePermutation = deque()
+    sentencePermutationsList = list()
+
+    getAllPossibleSentencesRec(allPossibleWordPermutations, sentencePermutation,
+                               sentencePermutationsList, totalPermutationsPossible, processedPermutations)
+
+    return sentencePermutationsList
+
+
+def getAllPossibleSentencesRec(allPossibleWordPermutations, sentencePermutation, sentencePermutationsList, totalPermutationsPossible, processedPermutations):
+    if(len(allPossibleWordPermutations) == 0):
+        sentencePermutationsList.append(list(sentencePermutation))
+
+        processedPermutations.append((processedPermutations.pop() + 1))
+
+        printProgressBar(processedPermutations[0], totalPermutationsPossible, prefix=(
+            "Loading Sentences"), suffix="Complete", length=50, fill="#")
+        return
+
+    for wordPermutation in allPossibleWordPermutations[0]:
+        sentencePermutation.append("".join(wordPermutation))
+        getAllPossibleSentencesRec(
+            allPossibleWordPermutations[1:], sentencePermutation, sentencePermutationsList, totalPermutationsPossible, processedPermutations)
+        sentencePermutation.pop()
+
+
 def getPossibleLettersForWordPermutationList(digitSequence):
     possibleLetters = list()
     for digit in digitSequence:
@@ -78,19 +117,7 @@ def getPossibleLettersForWordPermutationList(digitSequence):
     return possibleLetters
 
 
-def printAllWordPermutations(allWordPermutations):
-    currentWordNumber = 1
-    for wordPermutations in allWordPermutations:
-        print("\t\tWORD " + str(currentWordNumber) +
-              " (" + str(len(wordPermutations)) + ")")
-        currentWordPermutation = 1
-        for combination in wordPermutations:
-            print(str(currentWordPermutation) + ":\t" + "".join(combination))
-            currentWordPermutation = currentWordPermutation + 1
-        currentWordNumber = currentWordNumber + 1
-
-
-def getNumberOfAllPermutations(digitSequence):
+def getNumberOfAllWordPermutations(digitSequence):
     if(len(digitSequence) > 0):
         numberOfPerutations = 1
         for digit in digitSequence:

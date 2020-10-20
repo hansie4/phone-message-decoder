@@ -13,10 +13,14 @@ def decodePhoneKeypadMessage(outputFileName):
         allPossibleWordPermutations = getAllPossibleWordPermutations(
             rawMessage)
 
-        printPermutationsToFile(
-            allPossibleWordPermutations, outputFileName)
+        allPossibleSentences = getAllPossibleSentences(
+            allPossibleWordPermutations)
 
-        input("\nPress Enter to Continue.")
+        printPermutationsToFile(allPossibleSentences, outputFileName)
+
+        # printPermutationsToFile(
+        # allPossibleWordPermutations, outputFileName)
+
     elif (menuSelection == '2'):
         # Get all permutations with a valid english word
         rawMessage = getValidMessageToDecode()
@@ -35,8 +39,8 @@ def getDecodingMenuSelection():
 
     print("\tDECODING MENU:")
     print("1: Get all possible permutations")
-    print("2: Get all permutations with a valid english word")
-    print("3: Get all permutations with only valid english words")
+    print("2: Get all permutations with a valid english word **NOT YET IMPLEMENTED**")
+    print("3: Get all permutations with only valid english words **NOT YET IMPLEMENTED**")
     print("4: Go back")
 
     while (not menuSelected):
@@ -47,30 +51,24 @@ def getDecodingMenuSelection():
     return menuSelection
 
 
-def printPermutationsToFile(allWordPermutations, fileName):
+def printPermutationsToFile(allPermutations, fileName):
     file = open(fileName, "w")
 
-    currentWordNumber = 1
-    for wordPermutations in allWordPermutations:
+    totalPermutationsPossible = len(allPermutations)
+    processedPermutations = 0
 
-        totalPermutationsPossible = len(wordPermutations)
-        processedPermutations = 0
+    currentPermutationNumber = 1
+    for permutation in allPermutations:
+        file.write(str(currentPermutationNumber) +
+                   ": " + "-".join(permutation) + "\n")
 
-        file.write(f"\t\tWORD {currentWordNumber}\n")
+        processedPermutations = processedPermutations + 1
 
-        currentWordPermutationNumber = 1
-        for combination in wordPermutations:
-            file.write(str(currentWordPermutationNumber) +
-                       ":" + "".join(combination) + "\n")
+        printProgressBar(processedPermutations, totalPermutationsPossible, prefix=(
+            "Writing Sentences"), suffix="Complete", length=50, fill="#")
 
-            processedPermutations = processedPermutations + 1
+        currentPermutationNumber = currentPermutationNumber + 1
 
-            printProgressBar(processedPermutations, totalPermutationsPossible, prefix=(
-                "Writing Word " + str(currentWordNumber)), suffix="Complete", length=50, fill="#")
-
-            currentWordPermutationNumber = currentWordPermutationNumber + 1
-        currentWordNumber = currentWordNumber + 1
-
-    print(f"Possible Words can be found in {fileName}")
+    print(f"Possible sentences can be found in {fileName}")
 
     file.close()
